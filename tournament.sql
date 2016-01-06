@@ -22,3 +22,12 @@ CREATE TABLE match ( matchID SERIAL primary key,
                      player1ID SERIAL references playerList,
                      player2ID SERIAL references playerList,
                      winner SERIAL references playerList );
+
+
+--This table stores the player standings for the tournament
+--It stores four items for each player (id, names, wins, match)
+
+CREATE TABLE standings ( id SERIAL primary key references playerList,
+                         name TEXT references playerList,
+                         wins INT,
+                          matchID SERIAL references match );
