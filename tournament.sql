@@ -10,7 +10,7 @@
 --This is the first table that holds the basic player
 --data. It has three columns, one for the player name
 --the other is the unique id, and the final is the number of wins
-CREATE TABLE playerList ( content TEXT,
+CREATE TABLE playerList ( name TEXT,
                           id SERIAL primary key, wins INTEGER );
 
 

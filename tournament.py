@@ -36,7 +36,12 @@ def registerPlayer(name):
       name: the player's full name (need not be unique).
     """
 
+    DB = connect()
+    c = DB.cursor()
+    c.execute("INSERT INTO playerList (name) VALUES (%s)",
+                (bleach.clean(content),))
 
+    DB.close()
 def playerStandings():
     """Returns a list of the players and their win records, sorted by wins.
 
