@@ -11,7 +11,7 @@
 --data. It has three columns, one for the player name
 --the other is the unique id, and the final is the number of wins
 CREATE TABLE playerList ( name TEXT,
-                          id SERIAL primary key, wins INTEGER );
+                          id SERIAL primary key);
 
 
 
