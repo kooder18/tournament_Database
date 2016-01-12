@@ -14,7 +14,7 @@ def connect():
 def deleteMatches():
     """Remove all the match records from the database."""
     DB = connect()
-    c = DB.cursor()
+    c  = DB.cursor()
     c.execute("DELETE FROM match")
     DB.commit()
     DB.close()
@@ -33,7 +33,7 @@ def deletePlayers():
 def countPlayers():
     """Returns the number of players currently registered."""
     DB = connect()
-    c = DB.cursor()
+    c  = DB.cursor()
     c.execute("SELECT count(*) FROM playerList")
     count = c.fetchone() #This returns a tuple
     temp = count[0] #The value is the first in the tuple
@@ -53,12 +53,14 @@ def registerPlayer(name):
     """
 
     DB = connect()
-    c = DB.cursor()
+    c  = DB.cursor()
     c.execute("INSERT INTO playerList (name) VALUES (%s)",
                 (bleach.clean(name),)) #Sanitize the inputs
 
     DB.commit() #Commit the changes
     DB.close()
+    #Notice that this function does not add in wins the wins
+    #Column is therefore left blank.
 def playerStandings():
     """Returns a list of the players and their win records, sorted by wins.
 
@@ -72,6 +74,14 @@ def playerStandings():
         wins: the number of matches the player has won
         matches: the number of matches the player has played
     """
+    DB = connect()
+    c  = DB.cursor()
+    c.execute("SELECT * FROM playerList ORDER BY id;")
+    standings = [(str(row[1]), str(row[0]), int(row[2]), int(row[3]))
+                for row in c.fetchall()]
+    print standings
+    DB.close()
+    return standings
 
 
 def reportMatch(winner, loser):

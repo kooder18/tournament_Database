@@ -11,7 +11,11 @@
 --data. It has three columns, one for the player name
 --the other is the unique id, and the final is the number of wins
 CREATE TABLE playerList ( name TEXT,
-                          id SERIAL primary key);
+                          id SERIAL primary key,
+                          wins INT,
+                          CHECK (wins >= 0),
+                        matches INT,
+                          CHECK (matches >=0));
 
 
 
@@ -19,15 +23,15 @@ CREATE TABLE playerList ( name TEXT,
 --The match id and both player ids it references the playerList
 --Table so that only registered players may be in the match.
 CREATE TABLE match ( matchID SERIAL primary key,
-                     player1ID SERIAL references playerList,
-                     player2ID SERIAL references playerList,
-                     winner SERIAL references playerList );
+                     player1ID SERIAL references playerList (id),
+                     player2ID SERIAL references playerList (id),
+                     winner SERIAL references playerList (id) );
 
 
 --This table stores the player standings for the tournament
 --It stores four items for each player (id, names, wins, match)
 
-CREATE TABLE standings ( id SERIAL primary key references playerList,
-                         name TEXT references playerList,
-                         wins INT,
-                          matchID SERIAL references match );
+--CREATE TABLE standings ( id SERIAL primary key references playerList (id),
+  --                       name TEXT references playerList (name),
+  --                     wins INT,
+  --                       matchID SERIAL references match (matchID) );
