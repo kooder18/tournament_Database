@@ -79,7 +79,6 @@ def playerStandings():
     c.execute("SELECT * FROM playerList ORDER BY id;")
     standings = [(str(row[1]), str(row[0]), int(row[2]), int(row[3]))
                 for row in c.fetchall()]
-    print standings
     DB.close()
     return standings
 
@@ -91,6 +90,14 @@ def reportMatch(winner, loser):
       winner:  the id number of the player who won
       loser:  the id number of the player who lost
     """
+
+    DB = connect()
+    c = DB.cursor()
+    c.execute("INSERT INTO match (pWin, pLose) VALUES (%s, %s)",
+                (winner, loser))
+
+    DB.commit()
+    DB.close()            
 
 
 def swissPairings():
@@ -108,3 +115,7 @@ def swissPairings():
         id2: the second player's unique id
         name2: the second player's name
     """
+
+    DB = connect()
+    c = DB.cursor()
+    """totalPlayers = [(int(row[0]), int(row))] """

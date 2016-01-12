@@ -23,9 +23,8 @@ CREATE TABLE playerList ( name TEXT,
 --The match id and both player ids it references the playerList
 --Table so that only registered players may be in the match.
 CREATE TABLE match ( matchID SERIAL primary key,
-                     player1ID SERIAL references playerList (id),
-                     player2ID SERIAL references playerList (id),
-                     winner SERIAL references playerList (id) );
+                     pWin SERIAL references playerList (id),
+                     pLose SERIAL references playerList (id));
 
 
 --This table stores the player standings for the tournament
