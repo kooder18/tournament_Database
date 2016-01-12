@@ -12,9 +12,9 @@
 --the other is the unique id, and the final is the number of wins
 CREATE TABLE playerList ( name TEXT,
                           id SERIAL primary key,
-                          wins INT,
+                          wins INT DEFAULT 0,
                           CHECK (wins >= 0),
-                        matches INT,
+                        matches INT DEFAULT 0,
                           CHECK (matches >=0));
 
 

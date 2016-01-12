@@ -97,7 +97,7 @@ def reportMatch(winner, loser):
                 (winner, loser))
 
     DB.commit()
-    DB.close()            
+    DB.close()
 
 
 def swissPairings():
