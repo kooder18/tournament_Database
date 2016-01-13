@@ -74,12 +74,20 @@ def playerStandings():
         wins: the number of matches the player has won
         matches: the number of matches the player has played
     """
+    #Needs to iterate through the playerList, for each player run a subquery
+    #to check if that player has played any matches, if not, set matches and
+    #wins to zero, if the player does appear in the match table then
+    # run a count query on wins, and update the standings, then run a second
+    #count query on wins or losses and add this to the total matches for that
+    #player. Finally needs to rank the players based on wins
+
     DB = connect()
     c  = DB.cursor()
     c.execute("SELECT * FROM playerList ORDER BY id;")
-    standings = [(str(row[1]), str(row[0]), int(row[2]), int(row[3]))
+    standings = [(str(row[0]), str(row[1]), int(0), int(0))
                 for row in c.fetchall()]
     DB.close()
+    print(standings)
     return standings
 
 
@@ -91,6 +99,8 @@ def reportMatch(winner, loser):
       loser:  the id number of the player who lost
     """
 
+    #Here I will be using an SQL command to update data from
+    #The matches table to the playerList table
     DB = connect()
     c = DB.cursor()
     c.execute("INSERT INTO match (pWin, pLose) VALUES (%s, %s)",
