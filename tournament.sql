@@ -6,12 +6,11 @@
 -- You can write comments in this file by starting them with two dashes, like
 -- these lines here.
 
-/*
---Uncomment this to create the database if needed
+
 DROP DATABASE tournament;
 CREATE DATABASE tournament;
 \c tournament;
-*/
+
 
 
 --This is the first table that holds the basic player

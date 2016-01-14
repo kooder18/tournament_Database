@@ -83,11 +83,10 @@ def playerStandings():
 
     DB = connect()
     c  = DB.cursor()
-    c.execute("SELECT * FROM playerList ORDER BY id;")
-    standings = [(str(row[0]), str(row[1]), int(0), int(0))
+    c.execute("SELECT * FROM v_final;")
+    standings = [(int(row[0]), str(row[1]), int(row[2]), int(row[3]))
                 for row in c.fetchall()]
     DB.close()
-    print(standings)
     return standings
 
 
@@ -99,11 +98,10 @@ def reportMatch(winner, loser):
       loser:  the id number of the player who lost
     """
 
-    #Here I will be using an SQL command to update data from
-    #The matches table to the playerList table
+
     DB = connect()
     c = DB.cursor()
-    c.execute("INSERT INTO match (pWin, pLose) VALUES (%s, %s)",
+    c.execute("INSERT INTO match (winner, loser) VALUES (%s, %s)",
                 (winner, loser))
 
     DB.commit()
