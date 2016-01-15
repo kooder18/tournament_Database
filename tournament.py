@@ -74,12 +74,12 @@ def playerStandings():
         wins: the number of matches the player has won
         matches: the number of matches the player has played
     """
-    #Needs to iterate through the playerList, for each player run a subquery
-    #to check if that player has played any matches, if not, set matches and
-    #wins to zero, if the player does appear in the match table then
-    # run a count query on wins, and update the standings, then run a second
-    #count query on wins or losses and add this to the total matches for that
-    #player. Finally needs to rank the players based on wins
+    """
+    This function calls the v_final view from the sql database
+    this view is based on previous views, and it formats the data so
+    that all null values, for both matches and wins are replaced with
+    zero, and also the players are ordered by the number of wins.
+    """
 
     DB = connect()
     c  = DB.cursor()
@@ -124,6 +124,16 @@ def swissPairings():
         name2: the second player's name
     """
 
-    DB = connect()
-    c = DB.cursor()
-    """totalPlayers = [(int(row[0]), int(row))] """
+    list = playerStandings() #Grab the list from the playerStandings function
+
+    pairing = []
+    for a, b, c, d in list:
+        pairing += [(int(a), str(b))] #Create a new list with only id, name
+
+    list = []
+    x = len(pairing)
+    y = 0
+    while y < x: #place an if else to handle odd numbers of players
+        list += [(pairing[y] + pairing[y+1])];
+        y +=2
+    return list
