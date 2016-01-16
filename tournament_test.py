@@ -138,7 +138,7 @@ def testTie():
     [win1, win2] = [row[2] for row in standings]
     [match1, match2] = [row[3] for row in standings]
 
-    if(win1 != 1 or win1 != win2):
+    if(win1 != 1 or win1 != win2): 
         raise ValueError(
             "Wins not recorded for tie"
         )

@@ -122,6 +122,19 @@ def reportTie(id1, id2):
     DB.commit()
     DB.close()
 
+def reportBye(id1):
+    """
+    This function reports a match for which there is only one player.
+    That player gets a free win, and the win is stored in the tie1 column of
+    the match table.
+    """
+    DB = connect()
+    c = DB.cursor()
+    c.execute()
+    
+    DB.commit()
+    DB.close()
+
 def swissPairings():
     """Returns a list of pairs of players for the next round of a match.
 
