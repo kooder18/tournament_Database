@@ -111,11 +111,13 @@ def reportMatch(winner, loser):
 def reportTie(id1, id2):
     """
     Similiar to the reportMatch function records a tie between two players.
+    Note: A tie will count as a win for both players in this tournament
 
     """
     DB = connect()
     c = DB.cursor()
-    c.execute("")
+    c.execute("INSERT INTO match (tie1, tie2) VALUES (%s, %s)",
+                (id1, id2))
 
     DB.commit()
     DB.close()
