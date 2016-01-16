@@ -22,24 +22,32 @@ CREATE TABLE playerList ( id SERIAL primary key,
 
 
 --This is the table that stores the matches, it holds data for
---The match id and both player ids it references the playerList
---Table so that only registered players may be in the match.
+--The match id has columns for, winner, loser and two tie columns,
+--in the case of a tie.
 CREATE TABLE match ( matchID SERIAL primary key,
                      winner INT references playerList (id),
-                     loser INT references playerList (id));
+                     loser INT references playerList (id),
+                     tie1 INT references playerList (id),
+                     tie2 INT references playerList (id));
 
 
 
---This is a view called v_win that counts the number of total wins each player has
+/*This is a view called v_win that counts the number of total wins each
+player has. Note: that a tie counts as a win in this tournament
+ */
 CREATE VIEW v_win as SELECT playerList.id, count(playerList.id) as
-                       win_total FROM playerList, match WHERE playerList.id=match.winner
+                       win_total FROM playerList, match WHERE playerList.id=match.winner OR
+                       playerList.id=match.tie1 OR playerList.id=match.tie2
                        GROUP BY playerList.id;
                        -- ORDER BY win_total desc;
 
---This is a view called v_match it adds the number of wins and losses to get the total matches played.
+/*This is a view called v_match it adds the number of wins and losses, and ties
+to get the total matches played.
+*/
 CREATE VIEW v_match as SELECT playerList.id, count(playerList.id) as
                         v_match FROM playerList, match WHERE playerList.id=match.winner OR
-                        playerList.id=match.loser GROUP BY playerList.id;
+                        playerList.id=match.loser OR playerList.id=match.tie1
+                        OR playerList.id=match.tie2 GROUP BY playerList.id;
                         --ORDER BY v_match desc;
 
 /*This view makes a left join of the player table with the  v_win view,
@@ -75,7 +83,10 @@ values with zero.
 CREATE VIEW v_matchf as SELECT *, COALESCE(v_match,0) AS match
                                FROM v_allmatch;
 
---This is the final view with all the pieces in the table
+/*This is the final view with all the pieces in the table, the players are ordered
+by wins, to implement the swiss pairings ranking system.
+
+*/
 CREATE VIEW v_final as SELECT v_winf.id, v_winf.name, v_winf.wins, v_matchf.match
                               FROM v_winf LEFT OUTER JOIN v_matchf ON
                               v_winf.id = v_matchf.id ORDER BY wins desc;
@@ -109,6 +120,10 @@ INSERT INTO playerList (name) VALUES('Sherry Chen');
 /*
 More test data, this data updates the matches table
 */
+
+INSERT INTO match (tie1, tie2) VALUES (1, 3);
+INSERT INTO match (tie1, tie2) VALUES (1, 3);
+INSERT INTO match (tie1, tie2) VALUES (1, 3);
 
 INSERT INTO match (winner, loser) VALUES (1, 3);
 INSERT INTO match (winner, loser) VALUES (2, 3);
