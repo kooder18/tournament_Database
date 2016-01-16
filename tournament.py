@@ -108,6 +108,18 @@ def reportMatch(winner, loser):
     DB.close()
 
 
+def reportTie(id1, id2):
+    """
+    Similiar to the reportMatch function records a tie between two players.
+
+    """
+    DB = connect()
+    c = DB.cursor()
+    c.execute("")
+
+    DB.commit()
+    DB.close()
+
 def swissPairings():
     """Returns a list of pairs of players for the next round of a match.
 

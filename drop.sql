@@ -1,0 +1,9 @@
+DROP VIEW v_final;
+DROP VIEW v_matchf;
+DROP VIEW v_winf;
+DROP VIEW v_allmatch;
+DROP VIEW v_allwin;
+DROP VIEW v_match;
+DROP VIEW v_win;
+DROP TABLE match;
+DROP TABLE playerList;

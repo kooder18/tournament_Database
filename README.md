@@ -8,7 +8,7 @@ system.
 ## Getting Started ##
 
   All of the database commands are contained in the tournament.sql file, to load
-the database into the system run the command `\i tournament.sql` in the psql
+the database into the system run the command `\i tournament.sql;` in the psql
 command line from the terminal. Once the database is in the system run
 `python tournament_test.py` to execute the program.
 
