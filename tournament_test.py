@@ -92,7 +92,7 @@ def testReportMatches():
     reportMatch(id1, id2)
     reportMatch(id3, id4)
     standings = playerStandings()
-    
+
     for (i, n, w, m) in standings:
         if m != 1:
             raise ValueError("Each player should have one match recorded.")
@@ -126,6 +126,27 @@ def testPairings():
             "After one match, players with one win should be paired.")
     print "8. After one match, players with one win are paired."
 
+def testTie():
+    deleteMatches()
+    deletePlayers()
+    registerPlayer("Stewie Griffin")
+    registerPlayer("Peter Griffin")
+    standings = playerStandings()
+    [id1, id2] = [row[0] for row in standings]
+    reportTie(id1, id2)
+    standings = playerStandings()
+    [win1, win2] = [row[2] for row in standings]
+    [match1, match2] = [row[3] for row in standings]
+
+    if(win1 != 1 or win1 != win2):
+        raise ValueError(
+            "Wins not recorded for tie"
+        )
+    if (match1 != 1 or match1 != match2):
+        raise ValueError(
+            "Match not recorded for tie"
+        )
+    print "9. Tournament supports player ties."
 
 if __name__ == '__main__':
     testDeleteMatches()
@@ -136,4 +157,5 @@ if __name__ == '__main__':
     testStandingsBeforeMatches()
     testReportMatches()
     testPairings()
+    testTie()
     print "Success!  All tests pass!"
