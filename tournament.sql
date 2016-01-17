@@ -97,7 +97,7 @@ playerList table.
 */
 
 INSERT INTO playerList (name) VALUES('Stewie Griffin');
-INSERT INTO playerList (name) VALUES('Sherry Chen');
+INSERT INTO playerList (name) VALUES('Meg Griffin');
 INSERT INTO playerList (name) VALUES('Snowman');
 INSERT INTO playerList (name) VALUES('Iceman');
 INSERT INTO playerList (name) VALUES('Fireman');
@@ -112,13 +112,14 @@ INSERT INTO playerList (name) VALUES('Superman');
 INSERT INTO playerList (name) VALUES('Xman');
 INSERT INTO playerList (name) VALUES('Nakedman');
 INSERT INTO playerList (name) VALUES('Grumpyman');
-INSERT INTO playerList (name) VALUES('Sherry Chen');
+INSERT INTO playerList (name) VALUES('Meg Griffin');
 
 
 
 
 /*
 More test data, this data updates the matches table
+The first block of data tests for tie matches
 */
 
 INSERT INTO match (tie1, tie2) VALUES (1, 3);
