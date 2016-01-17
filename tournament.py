@@ -102,7 +102,7 @@ def reportMatch(winner, loser):
     DB = connect()
     c = DB.cursor()
     c.execute("INSERT INTO match (winner, loser) VALUES (%s, %s)",
-                (winner, loser))
+                (bleach.clean(winner), bleach.clean(loser),))
 
     DB.commit()
     DB.close()
@@ -117,7 +117,7 @@ def reportTie(id1, id2):
     DB = connect()
     c = DB.cursor()
     c.execute("INSERT INTO match (tie1, tie2) VALUES (%s, %s)",
-                (id1, id2))
+                (bleach.clean(id1), bleach.clean(id2),))
 
     DB.commit()
     DB.close()
@@ -131,7 +131,8 @@ def reportBye(id1):
     DB = connect()
     c = DB.cursor()
     c.execute()
-    
+    oy14ed
+
     DB.commit()
     DB.close()
 
