@@ -163,5 +163,7 @@ def swissPairings():
     y = 0
     while y < x: #place an if else to handle odd numbers of players
         list += [(pairing[y] + pairing[y+1])];
+        if(x%2 != 0 and y+2 == (x-1)):
+            list += [(pairing[y+2])]
         y +=2
     return list
