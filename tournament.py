@@ -117,7 +117,7 @@ def reportTie(id1, id2):
     DB = connect()
     c = DB.cursor()
     c.execute("INSERT INTO match (tie1, tie2) VALUES (%s, %s)",
-                (bleach.clean(id1), bleach.clean(id2),))
+                (bleach.clean(id1), bleach.clean(id2),)) #Clean inputs
 
     DB.commit()
     DB.close()
@@ -130,8 +130,9 @@ def reportBye(id1):
     """
     DB = connect()
     c = DB.cursor()
-    c.execute()
-    oy14ed
+    c.execute("INSERT INTO match (tie1) VALUES (%s)",
+                (bleach.clean(id1),))
+
 
     DB.commit()
     DB.close()
@@ -161,7 +162,11 @@ def swissPairings():
     list = []
     x = len(pairing)
     y = 0
-    while y < x: #place an if else to handle odd numbers of players
+    '''
+    If the length of players is odd then the last player entered will be stored
+    as a single name and id rather than a pair
+    '''
+    while y < x: 
         list += [(pairing[y] + pairing[y+1])];
         if(x%2 != 0 and y+2 == (x-1)):
             list += [(pairing[y+2])]
