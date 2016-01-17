@@ -127,6 +127,9 @@ def testPairings():
     print "8. After one match, players with one win are paired."
 
 def testTie():
+    '''
+This functions tests that the tournament supporst a tie between players
+    '''
     deleteMatches()
     deletePlayers()
     registerPlayer("Stewie Griffin")
@@ -138,7 +141,7 @@ def testTie():
     [win1, win2] = [row[2] for row in standings]
     [match1, match2] = [row[3] for row in standings]
 
-    if(win1 != 1 or win1 != win2): 
+    if(win1 != 1 or win1 != win2):
         raise ValueError(
             "Wins not recorded for tie"
         )
@@ -147,6 +150,33 @@ def testTie():
             "Match not recorded for tie"
         )
     print "9. Tournament supports player ties."
+
+
+def testOddNumberPlayers():
+    '''
+This function tests that the tournament supports an odd number of players
+    '''
+    deleteMatches()
+    deletePlayers()
+    registerPlayer("Stewie Griffin")
+    registerPlayer("Peter Griffin")
+    registerPlayer("Meg Griffin")
+    standings = playerStandings()
+    x = len(standings)
+    if(x != 3):
+        raise ValueError(
+            "Not all players added to standings"
+        )
+    id1 = standings[0][0]
+    reportBye(id1)
+    standings = playerStandings()
+    win1 = standings[0][2]
+    match1 = standings[0][3]
+    if(win1 != 1 or match1 !=1):
+        raise ValueError(
+            "Wins or matches not recorded for bye player"
+        )
+    print "10. Tournament supports a bye"
 
 if __name__ == '__main__':
     testDeleteMatches()
@@ -158,4 +188,5 @@ if __name__ == '__main__':
     testReportMatches()
     testPairings()
     testTie()
+    testOddNumberPlayers()
     print "Success!  All tests pass!"
